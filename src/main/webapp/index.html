@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>REST Pojo Example</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>AJAX Requests to POJO</h1>
+       	
+       	<button id="getBook">Make GET Request</button>
+       	<button id="postBook">Make POST Request</button>
+       	
+       	<br/>
+       	
+       	<button id="adminLogin">Admin Login</button>
+       	<button id="dataEntryLogin">Data Entry Login</button>
+       	
+       	<h1>Response:</h1>
+       	<pre id="responseOutput"></pre>
+       	
+        <script type="text/javascript">
+        	(function () {
+        		var apiBaseURL = '/pojo-rest/api/';
+        	
+        		var bookApiURL = apiBaseURL + 'book/';
+        		var loginApiURL = apiBaseURL + 'login/';
+        	
+        		var getBookButton = document.querySelector('#getBook');
+        		var postBookButton = document.querySelector('#postBook');
+        		var adminLoginButton = document.querySelector('#adminLogin');
+        		var dataEntryLoginButton = document.querySelector('#dataEntryLogin');
+        		
+        		var outputResponse = function(responseBody) {
+        			var outputElem = document.querySelector('#responseOutput');
+        			
+        			outputElem.innerHTML = responseBody;
+        		}
+        		
+        		getBookButton.addEventListener('click', function() {
+        			var xhr = new XMLHttpRequest();
+			                
+	                xhr.open('GET', window.location.origin + bookApiURL);
+	                
+	                xhr.onload = function() {
+	                	console.log(this);
+	                
+	                    if (this.status === 200) {			                        
+	                        outputResponse(this.response);
+	                    } else {
+	                        outputResponse('Error.');
+	                    }
+	                };
+	
+	                xhr.ontimeout = function() {
+	                    console.log('ontimeout', this.status, this.response);
+	                };
+	
+	                xhr.onerror = function() {
+	                    console.log('onerror', this.status, this.response);
+	                };
+	
+	                xhr.onabort = function () {
+	                    console.log('onabort', this.status, this.response);
+	                };
+	
+	                xhr.upload.onprogress = function (e) {
+	                    console.log('progress', e);
+	                };
+	
+	                xhr.send();
+        		});
+        		
+        		postBookButton.addEventListener('click', function() {
+        			var book = {
+        				"title": "Code Complete, 2nd Edition",
+        				"author": "Steve McConnell",
+        				"pageCount": 914
+       				};
+        		
+        			var xhr = new XMLHttpRequest();
+			                
+	                xhr.open('POST', window.location.origin + bookApiURL);
+	                
+	                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	                
+	                xhr.onload = function() {
+	                	console.log(this);
+	                
+	                    if (this.status === 201 || this.status == 200) {
+	                    	// 200 = Need to authenticate
+	                    	// 201 = POST success
+	                    			                        
+	                        outputResponse(this.response);
+	                    } else {
+	                        outputResponse('Error.');
+	                    }
+	                };
+	
+	                xhr.ontimeout = function() {
+	                    console.log('ontimeout', this.status, this.response);
+	                };
+	
+	                xhr.onerror = function() {
+	                    console.log('onerror', this.status, this.response);
+	                };
+	
+	                xhr.onabort = function () {
+	                    console.log('onabort', this.status, this.response);
+	                };
+	
+	                xhr.upload.onprogress = function (e) {
+	                    console.log('progress', e);
+	                };
+
+	                xhr.send(JSON.stringify(book));
+        		});
+        		
+        		var login = function(user, pass) {
+        			var xhr = new XMLHttpRequest();
+			                
+	                xhr.open('POST', window.location.origin + loginApiURL);
+	                
+	                xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	                
+	                xhr.onload = function() {
+	                	console.log(this);
+	                
+	                    if (this.status == 200) {
+	                    	// 200 = Authentication success
+	                    			                        
+	                        outputResponse(this.response);
+	                    } else {
+	                        outputResponse('Error.');
+	                    }
+	                };
+	
+	                xhr.ontimeout = function() {
+	                    console.log('ontimeout', this.status, this.response);
+	                };
+	
+	                xhr.onerror = function() {
+	                    console.log('onerror', this.status, this.response);
+	                };
+	
+	                xhr.onabort = function () {
+	                    console.log('onabort', this.status, this.response);
+	                };
+	
+	                xhr.upload.onprogress = function (e) {
+	                    console.log('progress', e);
+	                };
+
+	                xhr.send(JSON.stringify({'username': user, 'password': pass }));
+        		};
+        		
+        		adminLoginButton.addEventListener('click', function() {
+        			login('admin@admin.com', 'admin');
+        		});
+        		
+        		dataEntryLoginButton.addEventListener('click', function(){
+        			login('dataentry@admin.com', 'admin');
+        		});
+			})();
+        </script>
+    </body>
+</html>

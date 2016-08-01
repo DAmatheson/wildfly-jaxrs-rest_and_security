@@ -1,0 +1,8 @@
+{
+  "realm": "demo",
+  "realm-public-key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlzLwDpzCoJ8PpEGWPa97HP2kEhNOvX5rJjkNjLKnz0zmYS5jjtf51WjEXcnXlMc1YoYappNhtib17Otcm+IyVaj76YftagGzPY7ne04PwJQNdC/lOTjEmDpEaxQLRgK8+bDF5LFZua/HRgwjWeI8iCEICSshEQo92dS4Se/0FFP6P+o0RPibQtRtcPUl+hQeEpr9qAiYkCKZS9bTV6UaGvFlAHuau9d4mrDnMtpGi1ov5es84TGgrLW893Qlugk68Z2RKq/S2oAZPp8AwKziZW32DS+ZDNt1mxdo9QwwuMqqr1efMErtlO/X4pBPZ/bKJXk5oQTNNmtsdKhG1NBVKQIDAQAB",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "external",
+  "resource": "pojo-rest",
+  "public-client": true
+}
